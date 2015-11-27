@@ -88,7 +88,6 @@ s32 setup_exploit_data (void) {
 s32 recv_arm9_payload (void) {
 	s32 sockfd;
 	struct sockaddr_in sa;
-	s32 ret;
 	u32 kDown, old_kDown;
 	s32 clientfd;
 	struct sockaddr_in client_addr;

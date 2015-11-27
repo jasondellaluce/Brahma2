@@ -76,6 +76,12 @@ wait_arm9_loop:
 	ANDS            R0, R0, #1
 	BNE	            wait_arm9_loop
 
+	@ get arm9 orig entry point phys addr from FIRM header
+	LDR             R0, [R10, #0x0C]
+
+	@ backup orig entry point to FCRAM + offs ARM9 payload + 4
+	STR             R0, [R9, #0x4]
+
 	@ overwrite orig entry point with FCRAM addr
 	@ this exploits the race condition bug
 	STR             R9, [R10, #0x0C]
@@ -136,7 +142,7 @@ loc_1020D0:
 	MOV             R0, #4
 delay:
 	MOV             R1, #0
-        MCR             p15, 0, r1, c7, c10, 0
+	MCR             p15, 0, r1, c7, c10, 0
 	MCR             p15, 0, r1, c7, c10, 4
 loop:
 	SUBS            R0, #1
